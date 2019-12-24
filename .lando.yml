@@ -1,0 +1,7 @@
+name: amp-wp-theme-compat-analysis
+recipe: wordpress
+config:
+  webroot: public
+  via: nginx
+  xdebug: false
+  php: '7.3'
