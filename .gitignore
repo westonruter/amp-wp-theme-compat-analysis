@@ -1,2 +1,7 @@
-public/
+public/*
 !public/wp-config.php
+!public/wp-content/
+public/wp-content/*
+!public/wp-content/mu-plugins/
+themeunittestdata.wordpress.xml
+only_amp.mp4
