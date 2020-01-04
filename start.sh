@@ -35,3 +35,6 @@ fi
 
 lando wp create-monster-post
 lando wp populate-initial-widgets
+
+lando wp plugin activate populate-widget-areas
+lando wp plugin activate populate-nav-menu-locations

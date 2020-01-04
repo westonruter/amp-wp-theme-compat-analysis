@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Populate Widget Areas
+ * Plugin Name: Widget Population
  */
 
-namespace Populate_Widget_Areas;
+namespace Widget_Population;
 
 use WP_Widget;
 use WP_Widget_Factory;
@@ -135,31 +135,3 @@ function ensure_first_widget_setting_populated( WP_Widget $widget ) {
 
 	$widget->save_settings( $settings );
 }
-
-add_filter(
-	'sidebars_widgets',
-	function ( $sidebars_widgets ) {
-		if ( ! did_action( 'template_redirect' ) ) {
-			return $sidebars_widgets;
-		}
-		/**
-		 * @var WP_Widget_Factory $wp_widget_factory
-		 * @var array $wp_registered_sidebars
-		 */
-		global $wp_widget_factory, $wp_registered_sidebars;
-
-		foreach ( array_keys( $wp_registered_sidebars ) as $sidebar_id ) {
-			$widget_ids = [];
-			foreach ( $wp_widget_factory->widgets as $widget ) {
-				/**
-				 * @var WP_Widget $widget
-				 */
-				ensure_first_widget_setting_populated( $widget );
-				$widget_ids[] = $widget->id_base . '-2';
-			}
-			$sidebars_widgets[ $sidebar_id ] = $widget_ids;
-		}
-
-		return $sidebars_widgets;
-	}
-);
