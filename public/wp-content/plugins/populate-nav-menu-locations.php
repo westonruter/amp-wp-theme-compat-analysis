@@ -10,14 +10,19 @@ add_filter(
 			return $locations;
 		}
 
-		$menu = wp_get_nav_menu_object( 'Testing Menu' );
-		if ( ! ( $menu instanceof WP_Term ) ) {
+		$testing_menu = wp_get_nav_menu_object( 'Testing Menu' );
+		$social_menu = wp_get_nav_menu_object( 'Social menu' );
+		if ( ! ( $testing_menu instanceof WP_Term ) || ! ( $social_menu instanceof WP_Term ) ) {
 			return $locations;
 		}
 
 		$locations = [];
 		foreach ( array_keys( get_registered_nav_menus() ) as $nav_menu_location ) {
-			$locations[ $nav_menu_location ] = $menu->term_id;
+			if ( 'social' === $nav_menu_location ) {
+				$locations[ $nav_menu_location ] = $social_menu->term_id;
+			} else {
+				$locations[ $nav_menu_location ] = $testing_menu->term_id;
+			}
 		}
 		return $locations;
 	}
