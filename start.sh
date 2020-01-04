@@ -25,16 +25,26 @@ lando wp plugin install --activate coblocks
 
 if [ ! -e themeunittestdata.wordpress.xml ]; then
   wget https://raw.githubusercontent.com/WPTRT/theme-unit-test/master/themeunittestdata.wordpress.xml
+fi
+if [[ 0 == $(lando wp menu list --format=count) ]]; then
   lando wp import --authors=create themeunittestdata.wordpress.xml
 fi
 
-if [ ! -e only_amp.mp4 ]; then
+if [[ 0 == $(lando wp post list --post_type=attachment --post_name=accelerated-mobile-pages-is-now-just-amp --format=count) ]]; then
   wget https://blog.amp.dev/wp-content/uploads/2019/04/only_amp.mp4
   lando wp media import --title="Accelerated Mobile Pages is now just AMP" only_amp.mp4
+  rm only_amp.mp4
 fi
 
 lando wp create-monster-post
 lando wp populate-initial-widgets
 
-lando wp plugin activate populate-widget-areas
-lando wp plugin activate populate-nav-menu-locations
+lando wp plugin activate populate-widget-areas populate-nav-menu-locations
+monster_post_url=$(lando wp post list --post_type=post --name=monster --field=url | tr -d '\r\n')
+
+lando wp amp validation check-url $monster_post_url
+
+lando wp plugin deactivate populate-widget-areas populate-nav-menu-locations
+hello_world_post_url=$(lando wp post list --post_type=post --name=hello-world --field=url | tr -d '\r\n')
+
+lando wp amp validation check-url $hello_world_post_url
