@@ -21,7 +21,7 @@ lando wp option update --json amp-options '{"theme_support":"standard"}'
 
 lando wp plugin install --activate wordpress-importer
 lando wp plugin install --activate block-unit-test
-lando wp plugin install --activate coblocks
+#lando wp plugin install --activate coblocks
 
 if [ ! -e themeunittestdata.wordpress.xml ]; then
   wget https://raw.githubusercontent.com/WPTRT/theme-unit-test/master/themeunittestdata.wordpress.xml
@@ -39,12 +39,8 @@ fi
 lando wp create-monster-post
 lando wp populate-initial-widgets
 
-lando wp plugin activate populate-widget-areas populate-nav-menu-locations
-monster_post_url=$(lando wp post list --post_type=post --name=monster --field=url | tr -d '\r\n')
-
-lando wp amp validation check-url $monster_post_url
-
-lando wp plugin deactivate populate-widget-areas populate-nav-menu-locations
-hello_world_post_url=$(lando wp post list --post_type=post --name=hello-world --field=url | tr -d '\r\n')
-
-lando wp amp validation check-url $hello_world_post_url
+for theme in $(lando wp query-popular-themes); do
+  theme=$(tr -d '\r\n' <<< $theme)
+  lando wp theme install "$theme"
+  bash check-theme.sh "$theme"
+done

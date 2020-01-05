@@ -3,7 +3,6 @@
  * Plugin Name: Create Monster Post
  */
 
-
 if ( ! defined( 'WP_CLI' ) ) {
 	return;
 }

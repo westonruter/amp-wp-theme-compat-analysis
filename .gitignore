@@ -5,7 +5,7 @@ public/wp-content/*
 !public/wp-content/mu-plugins/
 !public/wp-content/plugins/
 public/wp-content/plugins/*
-!public/wp-content/plugins/populate-widget-areas.php
-!public/wp-content/plugins/populate-nav-menu-locations.php
+!public/wp-content/plugins/*.php
 themeunittestdata.wordpress.xml
 only_amp.mp4
+/results
