@@ -115,9 +115,9 @@ function print_table( $rows ) {
 		$lines[] = '| ' . implode( ' | ', $output ) . ' |';
 	}
 
-	WP_CLI::line( sprintf( '* Over the budget: %.1f%% 🚫', $count_error / count( $rows ) * 100 ) );
-	WP_CLI::line( sprintf( '* Close (≥80%%) to the budget: %.1f%%  ⚠️', $count_warn / count( $rows ) * 100 ) );
-	WP_CLI::line( sprintf( '* Well under the budget (<80%%): %.1f%% ✅', $count_ok / count( $rows ) * 100 ) );
+	WP_CLI::line( sprintf( '* Over the budget: %d%% 🚫', $count_error / count( $rows ) * 100 ) );
+	WP_CLI::line( sprintf( '* Close (≥80%%) to the budget: %d%%  ⚠️', $count_warn / count( $rows ) * 100 ) );
+	WP_CLI::line( sprintf( '* Well under the budget (<80%%): %d%% ✅', $count_ok / count( $rows ) * 100 ) );
 
 	WP_CLI::line( '' );
 

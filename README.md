@@ -8,9 +8,9 @@ The following two sections gather data on how much CSS is present on AMP pages w
 ### Light Page
 The following lists the CSS output by the most popular WordPress themes when rendering the default Hello World post. The less HTML there is on a page, the more effective the AMP plugin's CSS tree shaker is able to remove style rules. See [AMP page](twentytwenty-hello-world.html) from the Twenty Twenty theme (132KB).
 
-* Over the budget: 16.0% 🚫
-* Close (≥80%) to the budget: 4.0%  ⚠️
-* Well under the budget (<80%): 80.0% ✅
+* Over the budget: 16% 🚫
+* Close (≥80%) to the budget: 4%  ⚠️
+* Well under the budget (<80%): 80% ✅
 
 Rank | Theme | Original CSS | Minified CSS | Budget % | Status
 ---- | ----- | ------------ | ------------ | -------- | ------
@@ -118,9 +118,9 @@ Rank | Theme | Original CSS | Minified CSS | Budget % | Status
 ### Heavy Page
 The following lists the CSS output by the most popular WordPress themes when rendering a page which is fully loaded with all content from the [theme unit test data](https://codex.wordpress.org/Theme_Unit_Test) as well as populating all sidebars and all nav menus. When there is a lot of varied HTML there a page, the AMP plugin's CSS tree shaker less effective at removing style rules. See [AMP page](twentytwenty-hello-world.html) from the Twenty Twenty theme (676KB).
 
-* Over the budget: 81.0% 🚫
-* Close (≥80%) to the budget: 16.0%  ⚠️
-* Well under the budget (<80%): 3.0% ✅
+* Over the budget: 81% 🚫
+* Close (≥80%) to the budget: 16%  ⚠️
+* Well under the budget (<80%): 3% ✅
 
 Rank | Theme | Original CSS | Minified CSS | Budget % | Status
 ---- | ----- | ------------ | ------------ | -------- | ------
