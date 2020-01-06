@@ -35,29 +35,6 @@ WP_CLI::add_command(
 	}
 );
 
-function get_theme_popularities( $themes ) {
-	$results = get_transient( 'popular-250-themes' );
-	if ( empty( $results ) ) {
-		$results = themes_api( 'query_themes', [ 'browse' => 'popular', 'per_page' => 250 ] );
-		set_transient( 'popular-250-themes', $results, DAY_IN_SECONDS );
-	}
-
-	$popularities = [];
-	foreach ( $results->themes as $i => $theme ) {
-		if ( in_array( $theme->slug, $themes ) ) {
-			$popularities[ $theme->slug ] = $i;
-		}
-	}
-
-	// Normalize for missing themes.
-	asort( $popularities );
-	foreach ( array_keys( $popularities ) as $i => $theme ) {
-		$popularities[ $theme ] = $i + 1;
-	}
-
-	return $popularities;
-}
-
 function sort_by_minified_size_descending( &$rows ) {
 	usort(
 		$rows,
@@ -68,7 +45,7 @@ function sort_by_minified_size_descending( &$rows ) {
 }
 
 function sort_by_popularity_ascending( &$rows ) {
-	$popularities = get_theme_popularities( array_column( $rows, 0 ) );
+	$popularities = get_theme_popularities();
 	usort(
 		$rows,
 		function ( $a, $b ) use ( $popularities ) {
@@ -82,7 +59,7 @@ function sort_by_popularity_ascending( &$rows ) {
 
 function print_table( $rows ) {
 
-	$popularities = get_theme_popularities( array_column( $rows, 0 ) );
+	$popularities = get_theme_popularities();
 
 	//sort_by_minified_size_descending( $rows );
 	sort_by_popularity_ascending( $rows );
