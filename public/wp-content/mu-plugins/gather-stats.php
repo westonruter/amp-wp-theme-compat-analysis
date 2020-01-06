@@ -118,6 +118,7 @@ function print_table( $rows ) {
 	WP_CLI::line( sprintf( '* Over the budget: %d%% 🚫', $count_error / count( $rows ) * 100 ) );
 	WP_CLI::line( sprintf( '* Close (≥80%%) to the budget: %d%%  ⚠️', $count_warn / count( $rows ) * 100 ) );
 	WP_CLI::line( sprintf( '* Well under the budget (<80%%): %d%% ✅', $count_ok / count( $rows ) * 100 ) );
+	WP_CLI::line( sprintf( '* Average minified CSS: %sB', number_format( array_sum( array_column( $rows, 2 ) ) / count( $rows ) ) ) );
 
 	WP_CLI::line( '' );
 

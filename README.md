@@ -11,6 +11,7 @@ The following lists the CSS output by the most popular WordPress themes when ren
 * Over the budget: 16% 🚫
 * Close (≥80%) to the budget: 4%  ⚠️
 * Well under the budget (<80%): 80% ✅
+* Average minified CSS: 32,104B
 
 Rank | Theme | Original CSS | Minified CSS | Budget % | Status
 ---: | :---- | -----------: | -----------: | -------: | :----:
@@ -121,6 +122,7 @@ The following lists the CSS output by the most popular WordPress themes when ren
 * Over the budget: 81% 🚫
 * Close (≥80%) to the budget: 16%  ⚠️
 * Well under the budget (<80%): 3% ✅
+* Average minified CSS: 70,424B
 
 Rank | Theme | Original CSS | Minified CSS | Budget % | Status
 ---: | :---- | -----------: | -----------: | -------: | :----:
