@@ -70,12 +70,15 @@ function print_table( $rows ) {
 
 	$minification_amounts = [];
 
+	$max_minified_size = 0;
+	$min_minified_size = PHP_INT_MAX;
+
 	$lines = [];
 	$lines[] = "Rank | Theme | Original CSS | Minified CSS | Budget % | Status";
 	$lines[] = "---: | :---- | -----------: | -----------: | -------: | :----:";
 	foreach ( $rows as $row ) {
 		$output = [];
-		$output[] = isset( $popularities[ $row[0] ] ) ? $popularities[ $row[0] ] : '?';
+		$output[] = isset( $popularities[ $row[0] ] ) ? $popularities[ $row[0] ] + 1 : '?';
 		$output[] = sprintf( '[%1$s](https://wordpress.org/themes/%1$s/)', $row[0] );
 		$output[] = number_format( $row[1] );
 		$output[] = number_format( $row[2] );
@@ -94,12 +97,17 @@ function print_table( $rows ) {
 		$lines[] = '| ' . implode( ' | ', $output ) . ' |';
 
 		$minification_amounts[] = $row[2] / $row[1];
+
+		$max_minified_size = max( $max_minified_size, $row[2] );
+		$min_minified_size = min( $min_minified_size, $row[2] );
 	}
 
 	WP_CLI::line( sprintf( '* Over the budget: %d%% 🚫', $count_error / count( $rows ) * 100 ) );
 	WP_CLI::line( sprintf( '* Close (≥80%%) to the budget: %d%%  ⚠️', $count_warn / count( $rows ) * 100 ) );
 	WP_CLI::line( sprintf( '* Well under the budget (<80%%): %d%% ✅', $count_ok / count( $rows ) * 100 ) );
 	WP_CLI::line( sprintf( '* Average original CSS: %sB', number_format( array_sum( array_column( $rows, 1 ) ) / count( $rows ) ) ) );
+	WP_CLI::line( sprintf( '* Minimum minified CSS: %sB', number_format( $min_minified_size ) ) );
+	WP_CLI::line( sprintf( '* Maximum minified CSS: %sB', number_format( $max_minified_size ) ) );
 	WP_CLI::line( sprintf( '* Average minified CSS: %sB', number_format( array_sum( array_column( $rows, 2 ) ) / count( $rows ) ) ) );
 	WP_CLI::line( sprintf( '* Average minification: -%d%%', ( 1 - array_sum( $minification_amounts ) / count( $rows ) ) * 100 ) );
 
