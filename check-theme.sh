@@ -15,21 +15,25 @@ if [ -e "results/$theme" ]; then
   exit
 fi
 
-lando wp --skip-plugins --skip-themes theme install --activate "$theme"
+mkdir -p /tmp/pending-theme
 
-mkdir -p "results/$theme"
+lando wp --skip-plugins --skip-themes theme install --activate "$theme"
 
 lando wp plugin activate populate-widget-areas populate-nav-menu-locations
 monster_post_url=$(lando wp post list --post_type=post --name=monster --field=url | tr -d '\r\n')
-curl "$monster_post_url" > "results/$theme/monster.html"
-lando wp amp validation check-url "$monster_post_url" > "results/$theme/monster.json"
+curl -f "$monster_post_url" > "/tmp/pending-theme/monster.html"
+lando wp amp validation check-url "$monster_post_url" > "/tmp/pending-theme/monster.json"
 
 lando wp plugin deactivate populate-widget-areas populate-nav-menu-locations
 hello_world_post_url=$(lando wp post list --post_type=post --name=hello-world --field=url | tr -d '\r\n')
-curl "$hello_world_post_url" > "results/$theme/hello-world.html"
-lando wp amp validation check-url "$hello_world_post_url" > "results/$theme/hello-world.json"
+curl -f "$hello_world_post_url" > "/tmp/pending-theme/hello-world.html"
+lando wp amp validation check-url "$hello_world_post_url" > "/tmp/pending-theme/hello-world.json"
 
 if [ -e /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ]; then
   /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --disable-gpu --screenshot "$hello_world_post_url"
-  mv screenshot.png "results/$theme/hello-world.png"
+  mv screenshot.png "/tmp/pending-theme/hello-world.png"
 fi
+
+# Once results have been obtained, move into directory.
+mkdir -p "results/$theme"
+mv /tmp/pending-theme/* "results/$theme"
