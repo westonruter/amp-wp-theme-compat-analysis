@@ -91,6 +91,8 @@ function print_table( $rows ) {
 	$count_warn  = 0;
 	$count_ok    = 0;
 
+	$minification_amounts = [];
+
 	$lines = [];
 	$lines[] = "Rank | Theme | Original CSS | Minified CSS | Budget % | Status";
 	$lines[] = "---: | :---- | -----------: | -----------: | -------: | :----:";
@@ -113,12 +115,16 @@ function print_table( $rows ) {
 			$count_ok++;
 		}
 		$lines[] = '| ' . implode( ' | ', $output ) . ' |';
+
+		$minification_amounts[] = $row[2] / $row[1];
 	}
 
 	WP_CLI::line( sprintf( '* Over the budget: %d%% 🚫', $count_error / count( $rows ) * 100 ) );
 	WP_CLI::line( sprintf( '* Close (≥80%%) to the budget: %d%%  ⚠️', $count_warn / count( $rows ) * 100 ) );
 	WP_CLI::line( sprintf( '* Well under the budget (<80%%): %d%% ✅', $count_ok / count( $rows ) * 100 ) );
+	WP_CLI::line( sprintf( '* Average original CSS: %sB', number_format( array_sum( array_column( $rows, 1 ) ) / count( $rows ) ) ) );
 	WP_CLI::line( sprintf( '* Average minified CSS: %sB', number_format( array_sum( array_column( $rows, 2 ) ) / count( $rows ) ) ) );
+	WP_CLI::line( sprintf( '* Average minification: -%d%%', ( 1 - array_sum( $minification_amounts ) / count( $rows ) ) * 100 ) );
 
 	WP_CLI::line( '' );
 
