@@ -6,6 +6,9 @@ public/wp-content/*
 !public/wp-content/plugins/
 public/wp-content/plugins/*
 !public/wp-content/plugins/*.php
+public/wp-content/plugins/hello.php
+public/wp-content/plugins/index.php
 themeunittestdata.wordpress.xml
 only_amp.mp4
 /results
+screenshot.png

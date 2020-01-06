@@ -39,8 +39,4 @@ fi
 lando wp create-monster-post
 lando wp populate-initial-widgets
 
-for theme in $(lando wp query-popular-themes); do
-  theme=$(tr -d '\r\n' <<< $theme)
-  lando wp theme install "$theme"
-  bash check-theme.sh "$theme"
-done
+bash check-popular-themes.sh 100
