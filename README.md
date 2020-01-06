@@ -3,7 +3,7 @@
 What follows are the fidings of WordPress.org theme compatibility with the [official AMP plugin](https://github.com/ampproject/amp-wp).
 
 ## CSS `amp-custom` Usage
-The following two sections gather data on how much CSS is present on AMP pages when the [most popular themes on WordPress.org](https://wordpress.org/themes/browse/popular/) are active. The “Original CSS” column indicates the total amount of CSS (in bytes) being loaded onto the page, and the “Minified CSS” column indicates the amount after the original CSS is minified through removal of comments, whitespace, and unused selectors/rules via tree-shaking.
+The following two sections gather data on how much CSS is present on AMP pages when the [most popular themes on WordPress.org](https://wordpress.org/themes/browse/popular/) are active. The “Original CSS” column indicates the total amount of CSS (in bytes) being loaded onto the page, and the “Minified CSS” column indicates the amount after the original CSS is minified through removal of comments, whitespace, and unused selectors/rules via tree-shaking. The results here do not include CSS from plugins, where an average WordPress site may have a dozen plugins active. Therefore, the original CSS would normally be higher on a given site.
 
 ### Light Page
 The following lists the CSS output by the most popular WordPress themes when rendering the default Hello World post. The less HTML there is on a page, the more effective the AMP plugin's CSS tree shaker is able to remove style rules. See [AMP page](twentytwenty-hello-world.html) from the Twenty Twenty theme (132KB).
@@ -13,7 +13,7 @@ The following lists the CSS output by the most popular WordPress themes when ren
 * Well under the budget (<80%): 80% ✅
 
 Rank | Theme | Original CSS | Minified CSS | Budget % | Status
----- | ----- | ------------ | ------------ | -------- | ------
+---: | :---- | -----------: | -----------: | -------: | :----:
 | 1 | [twentytwenty](https://wordpress.org/themes/twentytwenty/) | 170,275 | 36,109 | 72.2% | ✅ |
 | 2 | [twentynineteen](https://wordpress.org/themes/twentynineteen/) | 272,046 | 28,469 | 56.9% | ✅ |
 | 3 | [twentyseventeen](https://wordpress.org/themes/twentyseventeen/) | 143,517 | 26,184 | 52.4% | ✅ |
@@ -123,7 +123,7 @@ The following lists the CSS output by the most popular WordPress themes when ren
 * Well under the budget (<80%): 3% ✅
 
 Rank | Theme | Original CSS | Minified CSS | Budget % | Status
----- | ----- | ------------ | ------------ | -------- | ------
+---: | :---- | -----------: | -----------: | -------: | :----:
 | 1 | [twentytwenty](https://wordpress.org/themes/twentytwenty/) | 175,895 | 95,648 | 191.3% | 🚫 |
 | 2 | [twentynineteen](https://wordpress.org/themes/twentynineteen/) | 277,092 | 94,005 | 188.0% | 🚫 |
 | 3 | [twentyseventeen](https://wordpress.org/themes/twentyseventeen/) | 149,711 | 64,789 | 129.6% | 🚫 |

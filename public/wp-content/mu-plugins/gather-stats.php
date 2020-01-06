@@ -93,7 +93,7 @@ function print_table( $rows ) {
 
 	$lines = [];
 	$lines[] = "Rank | Theme | Original CSS | Minified CSS | Budget % | Status";
-	$lines[] = "---- | ----- | ------------ | ------------ | -------- | ------";
+	$lines[] = "---: | :---- | -----------: | -----------: | -------: | :----:";
 	foreach ( $rows as $row ) {
 		$output = [];
 		$output[] = isset( $popularities[ $row[0] ] ) ? $popularities[ $row[0] ] : '?';

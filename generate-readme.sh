@@ -10,7 +10,7 @@ echo 'What follows are the fidings of WordPress.org theme compatibility with the
 echo '' >> ./README.md
 
 echo '## CSS `amp-custom` Usage' >> ./README.md
-echo 'The following two sections gather data on how much CSS is present on AMP pages when the [most popular themes on WordPress.org](https://wordpress.org/themes/browse/popular/) are active. The “Original CSS” column indicates the total amount of CSS (in bytes) being loaded onto the page, and the “Minified CSS” column indicates the amount after the original CSS is minified through removal of comments, whitespace, and unused selectors/rules via tree-shaking.' >> ./README.md
+echo 'The following two sections gather data on how much CSS is present on AMP pages when the [most popular themes on WordPress.org](https://wordpress.org/themes/browse/popular/) are active. The “Original CSS” column indicates the total amount of CSS (in bytes) being loaded onto the page, and the “Minified CSS” column indicates the amount after the original CSS is minified through removal of comments, whitespace, and unused selectors/rules via tree-shaking. The results here do not include CSS from plugins, where an average WordPress site may have a dozen plugins active. Therefore, the original CSS would normally be higher on a given site.' >> ./README.md
 echo '' >> ./README.md
 
 echo "### Light Page" >> ./README.md
