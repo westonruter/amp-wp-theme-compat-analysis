@@ -17,16 +17,18 @@ fi
 
 mkdir -p /tmp/pending-theme
 
-lando wp --skip-plugins --skip-themes theme install --activate "$theme"
+lando wp --skip-plugins --skip-themes theme activate "$theme"
+
+# TODO: Capture the time it takes to make each request.
 
 lando wp plugin activate populate-widget-areas populate-nav-menu-locations
-monster_post_url=$(lando wp post list --post_type=post --name=monster --field=url | tr -d '\r\n')
-curl -f "$monster_post_url" > "/tmp/pending-theme/monster.html"
+monster_post_url=$(lando wp --skip-plugins --skip-themes post list --post_type=post --name=monster --field=url | tr -d '\t \r\n')
+curl -m 10 -f "$monster_post_url" > "/tmp/pending-theme/monster.html"
 lando wp amp validation check-url "$monster_post_url" > "/tmp/pending-theme/monster.json"
 
 lando wp plugin deactivate populate-widget-areas populate-nav-menu-locations
-hello_world_post_url=$(lando wp post list --post_type=post --name=hello-world --field=url | tr -d '\r\n')
-curl -f "$hello_world_post_url" > "/tmp/pending-theme/hello-world.html"
+hello_world_post_url=$(lando wp --skip-plugins --skip-themes post list --post_type=post --name=hello-world --field=url | tr -d '\t \r\n')
+curl -m 10 -f "$hello_world_post_url" > "/tmp/pending-theme/hello-world.html"
 lando wp amp validation check-url "$hello_world_post_url" > "/tmp/pending-theme/hello-world.json"
 
 if [ -e /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ]; then
