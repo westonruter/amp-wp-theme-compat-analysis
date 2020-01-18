@@ -11,7 +11,7 @@ WP_CLI::add_command(
 	'gather-stats',
 	function ( $args ) {
 		$page_name = isset( $args[0] ) ? $args[0] : 'hello-world';
-		chdir( ABSPATH . '/../results' );
+		chdir( ABSPATH . '/../results/theme-directories/wporg-themes' );
 
 		$rows = [];
 		foreach ( glob( '*', GLOB_ONLYDIR ) as $theme_dir ) {
@@ -22,6 +22,11 @@ WP_CLI::add_command(
 			}
 
 			$page_data = json_decode( file_get_contents( $data_file ), true );
+			if ( json_last_error() ) {
+				WP_CLI::warning( "Unable to parse $data_file." );
+				continue;
+			}
+
 			list( $original_size, $minified_size ) = get_stylesheet_sizes( $page_data );
 
 			$rows[] = [

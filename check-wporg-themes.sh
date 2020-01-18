@@ -8,13 +8,13 @@ if [ ! -z $1 ]; then
   total="$1"
 fi
 
-mkdir -p public/wp-content/wporg-themes
+mkdir -p public/wp-content/theme-directories/wporg-themes
 
 for theme in $(lando wp --skip-plugins --skip-themes query-popular-themes $total); do
   theme=$(tr -d '\r\n' <<< $theme)
   i=$((i+1))
 
-  if [ -e "results/$theme" ]; then
+  if [ -e "results/theme-directories/wporg-themes/$theme" ]; then
     echo "Results already obtained for theme: $theme"
     continue
   fi
@@ -29,12 +29,12 @@ for theme in $(lando wp --skip-plugins --skip-themes query-popular-themes $total
     lando wp --skip-plugins --skip-themes theme install "$parent_theme" || continue
   fi
 
-  bash check-theme.sh "$theme" || echo "Failed to check theme"
+  bash check-theme.sh "$theme" "wporg-themes" || echo "Failed to check theme"
 
   for theme_dir in public/wp-content/themes/*; do
     theme_basename=$(basename "$theme_dir")
-    if [ ! -e "public/wp-content/wporg-themes/$theme_basename" ]; then
-      mv "$theme_dir" "public/wp-content/wporg-themes/$theme_basename"
+    if [ ! -e "public/wp-content/theme-directories/wporg-themes/$theme_basename" ]; then
+      mv "$theme_dir" "public/wp-content/theme-directories/wporg-themes/$theme_basename"
     else
       rm -R "$theme_dir"
     fi

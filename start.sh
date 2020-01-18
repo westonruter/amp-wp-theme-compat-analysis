@@ -39,4 +39,4 @@ fi
 lando wp create-monster-post
 lando wp populate-initial-widgets
 
-bash check-popular-themes.sh 100
+bash check-wporg-themes.sh 100
